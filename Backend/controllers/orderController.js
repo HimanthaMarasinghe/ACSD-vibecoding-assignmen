@@ -51,3 +51,23 @@ export const getOrders = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const db = getDb();
+
+    const orderIndex = db.orders.findIndex(o => o.id === id);
+    if (orderIndex === -1) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    db.orders[orderIndex].status = status;
+    saveDb(db);
+
+    res.json(db.orders[orderIndex]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
