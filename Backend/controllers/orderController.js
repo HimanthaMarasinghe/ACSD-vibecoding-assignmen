@@ -17,7 +17,7 @@ const saveDb = (data) => {
 
 export const createOrder = async (req, res) => {
   try {
-    const { customer_name, email, address, phone, total_amount, items } = req.body;
+    const { customer_name, email, address, phone, total_amount, items, status } = req.body;
     const db = getDb();
 
     const newOrder = {
@@ -28,7 +28,7 @@ export const createOrder = async (req, res) => {
       phone,
       total_amount,
       items,
-      status: 'Processing',
+      status: status || 'Processing',
       created_at: new Date().toISOString()
     };
 

@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreditCard, Lock } from 'lucide-react';
+import { CreditCard, Lock, CheckCircle, XCircle } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
 import api from '../services/api';
 
@@ -10,14 +10,20 @@ const Payment = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [simulateSuccess, setSimulateSuccess] = useState(true);
+  
+  // New state for popup modal
+  const [paymentResult, setPaymentResult] = useState(null); // 'Success' | 'Failed' | null
+  const [createdOrder, setCreatedOrder] = useState(null);
 
   const checkoutData = JSON.parse(sessionStorage.getItem('ceyloncart_checkout_data') || '{}');
 
   useEffect(() => {
+    if (paymentResult) return;
+    
     if (cartItems.length === 0 || !checkoutData.email) {
       navigate('/');
     }
-  }, [cartItems, checkoutData, navigate]);
+  }, [cartItems.length, checkoutData.email, navigate, paymentResult]);
 
   const [cardData, setCardData] = useState({
     cardNumber: '',
@@ -29,7 +35,6 @@ const Payment = () => {
     e.preventDefault();
     setError('');
     
-    // Basic validation
     if (cardData.cardNumber.length < 16 || cardData.expiry.length < 5 || cardData.cvv.length < 3) {
       setError('Please fill in all card details correctly (Mock validation)');
       return;
@@ -39,32 +44,76 @@ const Payment = () => {
 
     // Simulate network delay for payment processing
     setTimeout(async () => {
-      if (!simulateSuccess) {
-        setIsProcessing(false);
-        navigate('/payment-failed', { state: { message: 'Payment declined by the mock bank. Please try again.' } });
-        return;
-      }
-
       try {
         const orderPayload = {
           ...checkoutData,
           total_amount: cartTotal,
-          items: cartItems
+          items: cartItems,
+          status: simulateSuccess ? 'Success' : 'Failed'
         };
 
         const response = await api.post('/orders', orderPayload);
-        clearCart();
-        sessionStorage.removeItem('ceyloncart_checkout_data');
-        navigate('/confirmation', { state: { order: response.data } });
+        
+        setIsProcessing(false);
+        setCreatedOrder(response.data);
+        
+        if (simulateSuccess) {
+          clearCart();
+          sessionStorage.removeItem('ceyloncart_checkout_data');
+          setPaymentResult('Success');
+        } else {
+          setPaymentResult('Failed');
+        }
       } catch (err) {
         setIsProcessing(false);
-        setError('Failed to save order. ' + (err.response?.data?.message || err.message));
+        setError('Failed to process order. ' + (err.response?.data?.message || err.message));
       }
     }, 2000);
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-16">
+    <div className="max-w-2xl mx-auto px-4 py-16 relative">
+      {/* Payment Result Modal Overlay */}
+      {paymentResult && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
+          <div className="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full text-center animate-fade-in-up">
+            {paymentResult === 'Success' ? (
+              <>
+                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Payment Successful!</h2>
+                <p className="text-gray-600 mb-6">Your order has been processed successfully.</p>
+                <button
+                  onClick={() => navigate('/confirmation', { state: { order: createdOrder } })}
+                  className="w-full py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition"
+                >
+                  View Order Summary
+                </button>
+              </>
+            ) : (
+              <>
+                <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Payment Failed!</h2>
+                <p className="text-gray-600 mb-6">Your transaction was declined by the bank.</p>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => navigate('/payment-failed', { state: { message: 'Payment declined by the mock bank.' } })}
+                    className="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition"
+                  >
+                    View Error Details
+                  </button>
+                  <button
+                    onClick={() => setPaymentResult(null)}
+                    className="w-full py-3 bg-white border border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Payment Details</h1>
@@ -147,7 +196,7 @@ const Payment = () => {
 
           <button
             type="submit"
-            disabled={isProcessing}
+            disabled={isProcessing || paymentResult}
             className={`w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-sm text-base font-bold text-white transition-all ${
               isProcessing ? 'bg-green-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
             }`}
