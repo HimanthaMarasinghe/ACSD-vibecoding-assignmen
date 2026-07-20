@@ -41,7 +41,7 @@ const Payment = () => {
     setTimeout(async () => {
       if (!simulateSuccess) {
         setIsProcessing(false);
-        setError('Payment declined by the bank. Please try again.');
+        navigate('/payment-failed', { state: { message: 'Payment declined by the mock bank. Please try again.' } });
         return;
       }
 
