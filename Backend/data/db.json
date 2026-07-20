@@ -288,6 +288,51 @@
       ],
       "status": "Success",
       "created_at": "2026-07-20T11:01:37.778Z"
+    },
+    {
+      "id": "order-1784545686348-138",
+      "customer_name": "Tharindu Perera ",
+      "email": "tharindp1s@gmail.com",
+      "address": "Colombo,Sri Lanka",
+      "phone": "0714671796",
+      "total_amount": 18495,
+      "items": [
+        {
+          "id": "17",
+          "name": "Barefoot Designer Handloom Sarong",
+          "description": "A premium designer edition of the beloved Barefoot handloom sarong, featuring bolder patterns and richer colour combinations. 100% cotton, handwoven in Sri Lanka.",
+          "price": 3600,
+          "category": "Apparel",
+          "image_url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+          "stock": 40,
+          "source": "Barefoot Ceylon",
+          "quantity": 1
+        },
+        {
+          "id": "18",
+          "name": "Premium Sri Lankan Handmade Batik Sarong",
+          "description": "100% cotton batik sarong, hand-dyed with the traditional wax-resist method. Every piece carries a slightly unique print - perfect as beachwear or loungewear.",
+          "price": 1995,
+          "category": "Apparel",
+          "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+          "stock": 60,
+          "source": "Thilakawardhana",
+          "quantity": 1
+        },
+        {
+          "id": "16",
+          "name": "Barefoot Classic Handloom Cotton Sarong",
+          "description": "The iconic Barefoot handloom sarong - 'the jeans of Asia'. Woven from 100% cotton with designs inspired by Sri Lanka's flora, fauna and the Indian Ocean. Unisex and timeless.",
+          "price": 2580,
+          "category": "Apparel",
+          "image_url": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80",
+          "stock": 55,
+          "source": "Barefoot Ceylon",
+          "quantity": 5
+        }
+      ],
+      "status": "Success",
+      "created_at": "2026-07-20T11:08:06.348Z"
     }
   ]
 }
