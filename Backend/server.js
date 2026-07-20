@@ -18,14 +18,30 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 // Test the database connection
-db.getConnection((err, connection) => {
-  if (err) {
+const testConnection = async () => {
+  try {
+    // Perform a lightweight request to check connectivity.
+    // Even if the table doesn't exist, a response from the Supabase API confirms it is reachable.
+    const { error } = await db.from('_connection_test').select('*').limit(1);
+    
+    if (error) {
+      if (error.message && error.message.includes('fetch failed')) {
+        console.error('Database connection failed: Network error / invalid URL');
+      } else if (error.status === 401 || error.code === '401' || (error.message && error.message.includes('JWT'))) {
+        console.error('Database connection failed: Invalid API key (Unauthorized)');
+      } else {
+        // Any other database response (e.g., table not found PGRST116/PGRST204/etc.) means the endpoint is reachable and active.
+        console.log('Database connected successfully (Supabase endpoint is reachable)!');
+      }
+    } else {
+      console.log('Database connected successfully!');
+    }
+  } catch (err) {
     console.error('Database connection failed:', err.message);
-  } else {
-    console.log('Database connected successfully!');
-    connection.release();
   }
-});
+};
+testConnection();
+
 
 // Start the server
 app.listen(PORT, () => {

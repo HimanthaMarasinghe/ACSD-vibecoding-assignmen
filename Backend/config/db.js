@@ -1,14 +1,25 @@
-const mysql = require('mysql2');
+const { createClient } = require('@supabase/supabase-js');
+const ws = require('ws');
 require('dotenv').config();
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+let supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error("Warning: SUPABASE_URL or SUPABASE_SERVICE_KEY is missing in your environment variables.");
+}
+
+// Clean up trailing /rest/v1/ if present in the URL, as the Supabase client appends it automatically
+if (supabaseUrl && supabaseUrl.includes('/rest/v1')) {
+  supabaseUrl = supabaseUrl.replace(/\/rest\/v1\/?$/, '');
+}
+
+const supabase = createClient(supabaseUrl || '', supabaseKey || '', {
+  realtime: {
+    transport: ws
+  }
 });
 
-module.exports = pool;
+module.exports = supabase;
+
+
