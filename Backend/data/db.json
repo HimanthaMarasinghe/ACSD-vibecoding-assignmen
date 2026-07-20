@@ -1,6 +1,11 @@
 {
   "currency": "LKR",
-  "categories": ["Tea", "Spices", "Handicrafts", "Apparel"],
+  "categories": [
+    "Tea",
+    "Spices",
+    "Handicrafts",
+    "Apparel"
+  ],
   "products": [
     {
       "id": "1",
@@ -203,5 +208,29 @@
       "source": "Barefoot Ceylon"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": "order-1784544765208-58",
+      "customer_name": "dfwefw",
+      "email": "wefwf@gmail.com",
+      "address": "299/2a, SL",
+      "phone": "0714671796",
+      "total_amount": 680,
+      "items": [
+        {
+          "id": "3",
+          "name": "Ahmad Ceylon Tea Premium Blend - Loose Leaf (200g)",
+          "description": "A selection of premium teas from the best gardens of Sri Lanka. Smooth, aromatic loose-leaf black tea for a traditional pot of Ceylon tea.",
+          "price": 680,
+          "category": "Tea",
+          "image_url": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=800&q=80",
+          "stock": 75,
+          "source": "Ahmad Tea LK",
+          "quantity": 1
+        }
+      ],
+      "status": "Processing",
+      "created_at": "2026-07-20T10:52:45.208Z"
+    }
+  ]
 }
