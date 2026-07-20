@@ -60,7 +60,7 @@ const CartDrawer = () => {
                     <div className="ml-4 flex flex-1 flex-col justify-center">
                       <div className="flex justify-between text-base font-medium text-gray-900 mb-1">
                         <h3 className="line-clamp-2 pr-4">{item.name}</h3>
-                        <p className="ml-4 whitespace-nowrap">${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="ml-4 whitespace-nowrap">Rs. {(item.price * item.quantity).toFixed(2)}</p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500 mb-2">{item.category}</p>
                       <div className="flex flex-1 items-end justify-between text-sm">
@@ -98,7 +98,7 @@ const CartDrawer = () => {
             <div className="border-t border-gray-200 px-6 py-6 bg-gray-50">
               <div className="flex justify-between text-lg font-bold text-gray-900 mb-4">
                 <p>Subtotal</p>
-                <p>${cartTotal.toFixed(2)}</p>
+                <p>Rs. {cartTotal.toFixed(2)}</p>
               </div>
               <p className="mt-0.5 text-sm text-gray-500 mb-6">
                 Shipping and taxes calculated at checkout.

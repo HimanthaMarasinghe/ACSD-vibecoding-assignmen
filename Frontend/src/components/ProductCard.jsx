@@ -23,7 +23,7 @@ const ProductCard = ({ product, onViewDetails }) => {
         <h3 className="text-lg font-semibold text-gray-900 mb-1 truncate">{product.name}</h3>
         <p className="text-sm text-gray-500 mb-4 line-clamp-2 flex-grow">{product.description}</p>
         <div className="flex items-center justify-between mt-auto">
-          <span className="text-xl font-bold text-green-700">${Number(product.price).toFixed(2)}</span>
+          <span className="text-xl font-bold text-green-700">Rs. {Number(product.price).toFixed(2)}</span>
           <div className="flex space-x-2">
             <button
               onClick={() => onViewDetails(product)}

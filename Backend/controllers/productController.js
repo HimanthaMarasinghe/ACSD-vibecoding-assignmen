@@ -1,35 +1,30 @@
-import { supabase, isMockMode } from '../config/supabase.js';
-import { seedProducts } from '../data/seedProducts.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.join(__dirname, '../data/db.json');
+
+const getDb = () => {
+  const data = fs.readFileSync(dbPath, 'utf8');
+  return JSON.parse(data);
+};
 
 export const getProducts = async (req, res) => {
   try {
     const { search, category } = req.query;
-
-    if (isMockMode) {
-      let filtered = [...seedProducts];
-      if (category && category !== 'All') {
-        filtered = filtered.filter(p => p.category.toLowerCase() === category.toLowerCase());
-      }
-      if (search) {
-        filtered = filtered.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
-      }
-      return res.json(filtered);
-    }
-
-    let query = supabase.from('products').select('*');
+    const db = getDb();
+    let filtered = db.products;
 
     if (category && category !== 'All') {
-      query = query.eq('category', category);
+      filtered = filtered.filter(p => p.category.toLowerCase() === category.toLowerCase());
     }
     if (search) {
-      query = query.ilike('name', `%${search}%`);
+      filtered = filtered.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
     }
 
-    const { data, error } = await query;
-
-    if (error) throw error;
-    res.json(data);
-
+    res.json(filtered);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -38,17 +33,12 @@ export const getProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
-
-    if (isMockMode) {
-      const product = seedProducts.find(p => p.id === id);
-      if (!product) return res.status(404).json({ message: 'Product not found' });
-      return res.json(product);
-    }
-
-    const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
-
-    if (error) throw error;
-    res.json(data);
+    const db = getDb();
+    
+    const product = db.products.find(p => p.id.toString() === id);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+    
+    res.json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

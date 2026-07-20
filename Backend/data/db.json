@@ -1,0 +1,207 @@
+{
+  "currency": "LKR",
+  "categories": ["Tea", "Spices", "Handicrafts", "Apparel"],
+  "products": [
+    {
+      "id": "1",
+      "name": "Dilmah Ceylon Tea Premium - 25 Tea Bags (50g)",
+      "description": "Classic single-origin Ceylon black tea in convenient tea bags. Bright, full-bodied and refreshing - Sri Lanka's most iconic everyday brew, best enjoyed with or without milk.",
+      "price": 405,
+      "category": "Tea",
+      "image_url": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80",
+      "stock": 120,
+      "source": "Glomark.lk"
+    },
+    {
+      "id": "2",
+      "name": "Mlesna English Breakfast Tea Bags (50g)",
+      "description": "A robust blend of high-grown Ceylon teas from Mlesna, crafted for a rich, malty cup that pairs perfectly with a hearty breakfast.",
+      "price": 330,
+      "category": "Tea",
+      "image_url": "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=800&q=80",
+      "stock": 90,
+      "source": "Mlesna Teas"
+    },
+    {
+      "id": "3",
+      "name": "Ahmad Ceylon Tea Premium Blend - Loose Leaf (200g)",
+      "description": "A selection of premium teas from the best gardens of Sri Lanka. Smooth, aromatic loose-leaf black tea for a traditional pot of Ceylon tea.",
+      "price": 680,
+      "category": "Tea",
+      "image_url": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=800&q=80",
+      "stock": 75,
+      "source": "Ahmad Tea LK"
+    },
+    {
+      "id": "4",
+      "name": "Jaf Tea Ceylon Supreme - Loose Leaf (250g Pouch)",
+      "description": "Premium high-grown Ceylon loose-leaf black tea with a bright liquor and lingering flavour. A supreme-grade single-origin tea in a resealable pouch.",
+      "price": 1320,
+      "category": "Tea",
+      "image_url": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80",
+      "stock": 60,
+      "source": "Jaf Tea LK"
+    },
+    {
+      "id": "5",
+      "name": "Dilmah Premium Ceylon Tea BOPF - Loose Black Tea (400g)",
+      "description": "Broken Orange Pekoe Fannings loose black tea - a strong, brisk and full-bodied brew ideal for a proper morning cup with milk.",
+      "price": 1430,
+      "category": "Tea",
+      "image_url": "https://images.unsplash.com/photo-1563822249366-3efb23b8e0c9?auto=format&fit=crop&w=800&q=80",
+      "stock": 50,
+      "source": "Daraz.lk"
+    },
+    {
+      "id": "6",
+      "name": "Ceylon Cinnamon Sticks - Grade Alba (250g)",
+      "description": "Authentic Ceylon 'true cinnamon' quills, prized worldwide for their delicate aroma, low coumarin content and naturally sweet taste. Packed in an eco-friendly kraft bag.",
+      "price": 2500,
+      "category": "Spices",
+      "image_url": "https://images.unsplash.com/photo-1608057828700-6a4f9db8f03d?auto=format&fit=crop&w=800&q=80",
+      "stock": 80,
+      "source": "Lanka.co / Serendib"
+    },
+    {
+      "id": "7",
+      "name": "Ceylon Cardamom - Whole Green Pods (100g)",
+      "description": "Fragrant Sri Lankan green cardamom pods with an intense, sweet-spicy aroma. A staple of Ceylon curries, milk teas and desserts.",
+      "price": 2400,
+      "category": "Spices",
+      "image_url": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
+      "stock": 65,
+      "source": "Lanka.co / Serendib"
+    },
+    {
+      "id": "8",
+      "name": "Ceylon Black Pepper - Whole Peppercorns (250g)",
+      "description": "Bold, pungent whole black peppercorns grown in the hill country of Sri Lanka. High piperine content for a sharp, earthy heat.",
+      "price": 950,
+      "category": "Spices",
+      "image_url": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80",
+      "stock": 100,
+      "source": "Ceylon Organic Store"
+    },
+    {
+      "id": "9",
+      "name": "Ceylon Cloves - Whole (100g)",
+      "description": "Premium sun-dried Sri Lankan cloves with a warm, sweet and intensely aromatic flavour. Perfect for curries, rice dishes and spiced tea.",
+      "price": 850,
+      "category": "Spices",
+      "image_url": "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80",
+      "stock": 85,
+      "source": "Ceylon Organic Store"
+    },
+    {
+      "id": "10",
+      "name": "Pure Ceylon Vanilla Extract - MeCeylon (80ml)",
+      "description": "Rich, natural vanilla extract made from Sri Lankan-grown vanilla beans. Adds deep, floral sweetness to baking and desserts.",
+      "price": 2100,
+      "category": "Spices",
+      "image_url": "https://images.unsplash.com/photo-1611691542291-95cbf5f2c1a1?auto=format&fit=crop&w=800&q=80",
+      "stock": 40,
+      "source": "Lanka.co / MeCeylon"
+    },
+    {
+      "id": "11",
+      "name": "Gurulu Raksha Traditional Wooden Mask - Ambalangoda",
+      "description": "Hand-carved and hand-painted 'Bird Demon' Raksha mask from Ambalangoda, the home of Sri Lankan mask craft. Made from light, durable Kaduru wood - a striking cultural wall piece.",
+      "price": 10008,
+      "category": "Handicrafts",
+      "image_url": "https://images.unsplash.com/photo-1533229280278-b5ac4b8d17c4?auto=format&fit=crop&w=800&q=80",
+      "stock": 15,
+      "source": "Lakshilpa (National Crafts Council)"
+    },
+    {
+      "id": "12",
+      "name": "Bamunu Traditional Wooden Mask",
+      "description": "Traditional hand-carved Bamunu character mask, brightly painted in classic southern Sri Lankan style. A collectible piece of Ceylon folk art.",
+      "price": 4500,
+      "category": "Handicrafts",
+      "image_url": "https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=800&q=80",
+      "stock": 20,
+      "source": "Lakshilpa (National Crafts Council)"
+    },
+    {
+      "id": "13",
+      "name": "Brass Traditional Oil Lamp (Pahana)",
+      "description": "Handcrafted solid brass ceremonial oil lamp used to bless Sri Lankan homes and occasions. Intricately detailed with a rooster finial - a timeless decorative heirloom.",
+      "price": 6500,
+      "category": "Handicrafts",
+      "image_url": "https://images.unsplash.com/photo-1604608672516-f1b9b1d37076?auto=format&fit=crop&w=800&q=80",
+      "stock": 25,
+      "source": "Laksala"
+    },
+    {
+      "id": "14",
+      "name": "Handwoven Rattan / Cane Basket",
+      "description": "Eco-friendly basket handwoven from natural cane by rural Sri Lankan artisans. Sturdy and versatile for storage or decor.",
+      "price": 2800,
+      "category": "Handicrafts",
+      "image_url": "https://images.unsplash.com/photo-1595408076683-9f2d2e0f4c1d?auto=format&fit=crop&w=800&q=80",
+      "stock": 35,
+      "source": "Gallery Ceylon"
+    },
+    {
+      "id": "15",
+      "name": "Handmade Batik Wall Hanging",
+      "description": "Vibrant hand-dyed batik textile art depicting Sri Lankan flora and fauna. Each piece is uniquely crafted using the traditional wax-resist dyeing technique.",
+      "price": 3200,
+      "category": "Handicrafts",
+      "image_url": "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80",
+      "stock": 30,
+      "source": "Lakshilpa (National Crafts Council)"
+    },
+    {
+      "id": "16",
+      "name": "Barefoot Classic Handloom Cotton Sarong",
+      "description": "The iconic Barefoot handloom sarong - 'the jeans of Asia'. Woven from 100% cotton with designs inspired by Sri Lanka's flora, fauna and the Indian Ocean. Unisex and timeless.",
+      "price": 2580,
+      "category": "Apparel",
+      "image_url": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80",
+      "stock": 55,
+      "source": "Barefoot Ceylon"
+    },
+    {
+      "id": "17",
+      "name": "Barefoot Designer Handloom Sarong",
+      "description": "A premium designer edition of the beloved Barefoot handloom sarong, featuring bolder patterns and richer colour combinations. 100% cotton, handwoven in Sri Lanka.",
+      "price": 3600,
+      "category": "Apparel",
+      "image_url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+      "stock": 40,
+      "source": "Barefoot Ceylon"
+    },
+    {
+      "id": "18",
+      "name": "Premium Sri Lankan Handmade Batik Sarong",
+      "description": "100% cotton batik sarong, hand-dyed with the traditional wax-resist method. Every piece carries a slightly unique print - perfect as beachwear or loungewear.",
+      "price": 1995,
+      "category": "Apparel",
+      "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+      "stock": 60,
+      "source": "Thilakawardhana"
+    },
+    {
+      "id": "19",
+      "name": "Handcrafted Batik Sarong - Lakshilpa",
+      "description": "Colourful handmade batik sarong suitable for special occasions and everyday wear. Available in a variety of traditional Sri Lankan colour combinations.",
+      "price": 2106,
+      "category": "Apparel",
+      "image_url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80",
+      "stock": 45,
+      "source": "Lakshilpa (National Crafts Council)"
+    },
+    {
+      "id": "20",
+      "name": "Handloom Cotton Batik Shirt",
+      "description": "Breathable handloom cotton shirt with a hand-painted batik motif. Lightweight and ideal for Sri Lanka's tropical climate - a smart-casual heritage piece.",
+      "price": 4500,
+      "category": "Apparel",
+      "image_url": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
+      "stock": 38,
+      "source": "Barefoot Ceylon"
+    }
+  ],
+  "orders": []
+}
