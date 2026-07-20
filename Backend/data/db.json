@@ -266,5 +266,17 @@
       "status": "Processing",
       "created_at": "2026-07-20T11:07:39.930Z"
     }
+  ],
+  "profiles": [
+    {
+      "id": "profile-1784548075853",
+      "email": "charithasudewa@gmail.com",
+      "name": "Charithasudewa",
+      "phone": "",
+      "address": "",
+      "avatar_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=charithasudewa%40gmail.com",
+      "bio": "CeylonCart customer",
+      "created_at": "2026-07-20T11:47:55.853Z"
+    }
   ]
 }

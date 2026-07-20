@@ -12,6 +12,7 @@ import PaymentFailed from './pages/PaymentFailed';
 import OrderConfirmation from './pages/OrderConfirmation';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/confirmation" element={<OrderConfirmation />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
               </Routes>
             </main>
             <Footer />

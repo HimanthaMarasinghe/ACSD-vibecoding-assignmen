@@ -33,6 +33,18 @@ CREATE TABLE orders (
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Create profiles table
+CREATE TABLE IF NOT EXISTS profiles (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  email text UNIQUE NOT NULL,
+  name text NOT NULL,
+  phone text,
+  address text,
+  avatar_url text,
+  bio text,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
 -- Insert 10 Sri Lankan dummy products
 INSERT INTO products (name, description, price, category, image_url, stock) VALUES
 ('Premium Ceylon Tea (BOP)', 'Finest grade Broken Orange Pekoe Ceylon tea with a rich flavor and golden color.', 12.50, 'Tea', 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=800', 100),

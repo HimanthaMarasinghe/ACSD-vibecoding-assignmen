@@ -20,6 +20,10 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {user ? (
               <>
+                <Link to="/profile" className="text-gray-500 hover:text-gray-900 flex items-center">
+                  <User className="w-5 h-5 mr-1 text-green-700" />
+                  <span className="hidden sm:inline capitalize mr-1">{user.name || 'Profile'}</span>
+                </Link>
                 <Link to="/admin" className="text-gray-500 hover:text-gray-900 flex items-center">
                   <Settings className="w-5 h-5 mr-1" />
                   <span className="hidden sm:inline">Admin</span>

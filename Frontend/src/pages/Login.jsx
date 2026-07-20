@@ -10,17 +10,20 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
     
-    // Using mock login logic from AuthContext
-    const success = login(email, password);
-    if (success) {
-      navigate('/admin');
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigate('/admin');
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.');
     }
   };
 
