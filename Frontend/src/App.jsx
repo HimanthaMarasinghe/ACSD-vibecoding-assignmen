@@ -8,6 +8,7 @@ import CartDrawer from './components/CartDrawer';
 import Home from './pages/Home';
 import Checkout from './pages/Checkout';
 import Payment from './pages/Payment';
+import PaymentFailed from './pages/PaymentFailed';
 import OrderConfirmation from './pages/OrderConfirmation';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/payment" element={<Payment />} />
+                <Route path="/payment-failed" element={<PaymentFailed />} />
                 <Route path="/confirmation" element={<OrderConfirmation />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/login" element={<Login />} />
