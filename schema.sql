@@ -10,6 +10,16 @@ CREATE TABLE products (
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Create reviews table
+CREATE TABLE reviews (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  product_id uuid REFERENCES products(id) ON DELETE CASCADE,
+  rating integer NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  comment text NOT NULL,
+  reviewer_name text NOT NULL,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
 -- Create orders table
 CREATE TABLE orders (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
