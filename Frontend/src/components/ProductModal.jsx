@@ -31,7 +31,7 @@ const ProductModal = ({ product, onClose }) => {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h2>
           <p className="text-3xl font-extrabold text-gray-900 mb-6">
-            ${Number(product.price).toFixed(2)}
+            Rs. {Number(product.price).toFixed(2)}
           </p>
           <div className="prose prose-sm text-gray-600 mb-8 flex-grow">
             <p>{product.description}</p>

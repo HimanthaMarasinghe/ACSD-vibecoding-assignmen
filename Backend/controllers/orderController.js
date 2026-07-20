@@ -1,34 +1,41 @@
-import { supabase, isMockMode } from '../config/supabase.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// In-memory store for mock mode
-const mockOrders = [];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.join(__dirname, '../data/db.json');
+
+const getDb = () => {
+  const data = fs.readFileSync(dbPath, 'utf8');
+  return JSON.parse(data);
+};
+
+const saveDb = (data) => {
+  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+};
 
 export const createOrder = async (req, res) => {
   try {
     const { customer_name, email, address, phone, total_amount, items } = req.body;
+    const db = getDb();
 
-    if (isMockMode) {
-      const newOrder = {
-        id: 'mock-order-' + Date.now(),
-        customer_name,
-        email,
-        address,
-        phone,
-        total_amount,
-        items,
-        status: 'Processing',
-        created_at: new Date().toISOString()
-      };
-      mockOrders.push(newOrder);
-      return res.status(201).json(newOrder);
-    }
+    const newOrder = {
+      id: 'order-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+      customer_name,
+      email,
+      address,
+      phone,
+      total_amount,
+      items,
+      status: 'Processing',
+      created_at: new Date().toISOString()
+    };
 
-    const { data, error } = await supabase.from('orders').insert([
-      { customer_name, email, address, phone, total_amount, items, status: 'Processing' }
-    ]).select().single();
+    db.orders.push(newOrder);
+    saveDb(db);
 
-    if (error) throw error;
-    res.status(201).json(data);
+    res.status(201).json(newOrder);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -36,14 +43,10 @@ export const createOrder = async (req, res) => {
 
 export const getOrders = async (req, res) => {
   try {
-    if (isMockMode) {
-      return res.json(mockOrders);
-    }
-
-    const { data, error } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
-
-    if (error) throw error;
-    res.json(data);
+    const db = getDb();
+    // Sort by created_at descending
+    const sortedOrders = db.orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    res.json(sortedOrders);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

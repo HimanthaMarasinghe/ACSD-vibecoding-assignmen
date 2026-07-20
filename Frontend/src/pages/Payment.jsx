@@ -77,7 +77,7 @@ const Payment = () => {
         <div className="bg-gray-50 p-4 rounded-xl mb-8 flex justify-between items-center border border-gray-100">
           <div>
             <p className="text-sm text-gray-500 mb-1">Total to pay</p>
-            <p className="text-2xl font-bold text-gray-900">${cartTotal.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-gray-900">Rs. {cartTotal.toFixed(2)}</p>
           </div>
           <div className="flex space-x-2 items-center">
             <label className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
@@ -161,7 +161,7 @@ const Payment = () => {
                 Processing Payment...
               </span>
             ) : (
-              `Pay $${cartTotal.toFixed(2)}`
+              `Pay Rs. ${cartTotal.toFixed(2)}`
             )}
           </button>
         </form>
