@@ -18,10 +18,12 @@ const Payment = () => {
   const checkoutData = JSON.parse(sessionStorage.getItem('ceyloncart_checkout_data') || '{}');
 
   useEffect(() => {
+    if (paymentResult) return;
+    
     if (cartItems.length === 0 || !checkoutData.email) {
       navigate('/');
     }
-  }, [cartItems, checkoutData, navigate]);
+  }, [cartItems.length, checkoutData.email, navigate, paymentResult]);
 
   const [cardData, setCardData] = useState({
     cardNumber: '',
