@@ -13,6 +13,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.set('trust proxy', 1);
+
 // Allow CORS for local frontend, configured FRONTEND_URL env var, or all origins in dev/postman
 app.use(cors({
   origin: (origin, callback) => {
