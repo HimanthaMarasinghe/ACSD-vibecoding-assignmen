@@ -24,7 +24,7 @@ import {
   AlertCircle,
   LayoutDashboard
 } from 'lucide-react';
-import api from '../services/api';
+import { adminApi, orderApi, productApi } from '../api';
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -58,14 +58,14 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       setError(null);
-      const [statsRes, ordersRes, productsRes] = await Promise.all([
-        api.get('/admin/stats'),
-        api.get('/orders'),
-        api.get('/products')
+      const [statsData, ordersData, productsData] = await Promise.all([
+        adminApi.getAdminStats(),
+        orderApi.getOrders(),
+        productApi.getProducts()
       ]);
-      setStats(statsRes.data);
-      setOrders(ordersRes.data);
-      setProducts(productsRes.data);
+      setStats(statsData);
+      setOrders(ordersData);
+      setProducts(productsData);
     } catch (err) {
       setError('Failed to load dashboard statistics.');
       console.error(err);
@@ -77,18 +77,17 @@ const AdminDashboard = () => {
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
       setUpdatingStatusId(orderId);
-      const response = await api.patch(`/orders/${orderId}/status`, { status: newStatus });
+      const updatedOrder = await orderApi.updateOrderStatus(orderId, newStatus);
       
       // Update local state
-      const updatedOrder = response.data;
       setOrders(prev => prev.map(o => o.id === orderId ? updatedOrder : o));
       if (selectedOrder && selectedOrder.id === orderId) {
         setSelectedOrder(updatedOrder);
       }
       
       // Refresh stats in background to keep data consistent
-      const statsRes = await api.get('/admin/stats');
-      setStats(statsRes.data);
+      const statsData = await adminApi.getAdminStats();
+      setStats(statsData);
     } catch (err) {
       console.error('Failed to update order status:', err);
       alert('Failed to update order status. Please try again.');

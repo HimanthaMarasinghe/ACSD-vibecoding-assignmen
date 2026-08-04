@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
-import api from '../services/api';
+import { productApi } from '../api';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 
@@ -24,8 +24,8 @@ const Home = () => {
       if (search) params.search = search;
       if (selectedCategory && selectedCategory !== 'All') params.category = selectedCategory;
       
-      const response = await api.get('/products', { params });
-      setProducts(response.data);
+      const data = await productApi.getProducts(params);
+      setProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {

@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, CheckCircle, XCircle } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
-import api from '../services/api';
+import { orderApi } from '../api';
 
 const Payment = () => {
   const { cartItems, cartTotal, clearCart } = useContext(CartContext);
@@ -52,10 +52,10 @@ const Payment = () => {
           status: simulateSuccess ? 'Success' : 'Failed'
         };
 
-        const response = await api.post('/orders', orderPayload);
+        const newOrder = await orderApi.createOrder(orderPayload);
         
         setIsProcessing(false);
-        setCreatedOrder(response.data);
+        setCreatedOrder(newOrder);
         
         if (simulateSuccess) {
           clearCart();

@@ -5,8 +5,13 @@ import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
-  const { cartItems, setIsCartOpen } = useContext(CartContext);
+  const { cartItems, setIsCartOpen, clearCart } = useContext(CartContext);
   const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    await logout();   // 1. Clear session / cookies
+    clearCart();      // 2. Clear cart items
+  };
 
   const itemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -22,9 +27,9 @@ const Navbar = () => {
               <>
                 <Link to="/admin" className="text-gray-500 hover:text-gray-900 flex items-center">
                   <Settings className="w-5 h-5 mr-1" />
-                  <span className="hidden sm:inline">Admin</span>
+                  <span className="hidden sm:inline">{user.user_metadata.name}</span>
                 </Link>
-                <button onClick={logout} className="text-gray-500 hover:text-gray-900 flex items-center">
+                <button onClick={handleLogout} className="text-gray-500 hover:text-gray-900 flex items-center">
                   <LogOut className="w-5 h-5 mr-1" />
                   <span className="hidden sm:inline">Logout</span>
                 </button>

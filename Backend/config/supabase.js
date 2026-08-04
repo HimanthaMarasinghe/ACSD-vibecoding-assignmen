@@ -1,20 +1,31 @@
 import { createClient } from '@supabase/supabase-js';
+import ws from 'ws';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || '';
+let supabaseUrl = (process.env.SUPABASE_URL || '').trim();
+const supabaseKey = (process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || '').trim();
 
-// Mock fallback logic
-export const isMockMode = !supabaseUrl || !supabaseKey || supabaseUrl === 'your_supabase_project_url';
+// Clean up trailing /rest/v1/ if present in the URL
+if (supabaseUrl && supabaseUrl.includes('/rest/v1')) {
+  supabaseUrl = supabaseUrl.replace(/\/rest\/v1\/?$/, '');
+}
 
 let supabase = null;
 
-if (!isMockMode) {
-  supabase = createClient(supabaseUrl, supabaseKey);
-  console.log('Supabase client initialized.');
-} else {
-  console.log('Running in MOCK mode. Supabase credentials not found or using defaults.');
-}
+  try {
+    supabase = createClient(supabaseUrl, supabaseKey, {
+      auth: {
+        persistSession: false
+      },
+      realtime: {
+        transport: ws
+      }
+    });
+    console.log('Supabase client initialized successfully.');
+  } catch (err) {
+    console.error('Failed to initialize Supabase client:', err.message);
+  }
 
 export { supabase };

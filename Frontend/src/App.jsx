@@ -4,6 +4,7 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import Home from './pages/Home';
 import Checkout from './pages/Checkout';
@@ -23,13 +24,15 @@ function App() {
             <CartDrawer />
             <main className="flex-grow pt-16">
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/payment-failed" element={<PaymentFailed />} />
-                <Route path="/confirmation" element={<OrderConfirmation />} />
-                <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/login" element={<Login />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/payment" element={<Payment />} />
+                  <Route path="/payment-failed" element={<PaymentFailed />} />
+                  <Route path="/confirmation" element={<OrderConfirmation />} />
+                </Route>
+                <Route path="/admin" element={<AdminDashboard />} />
               </Routes>
             </main>
             <Footer />
