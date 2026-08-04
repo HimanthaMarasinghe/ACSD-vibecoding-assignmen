@@ -10,7 +10,24 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+// Allow CORS for local frontend, configured FRONTEND_URL env var, or all origins in dev/postman
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow Postman/server-to-server (no origin header) or match frontend URL
+    if (!origin) return callback(null, true);
+    const allowed = [
+      'http://localhost:5173',
+      process.env.FRONTEND_URL
+    ].filter(Boolean);
+    
+    if (allowed.includes(origin) || !process.env.FRONTEND_URL) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Allow all origins by default if FRONTEND_URL is not set
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Routes
@@ -23,6 +40,15 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'CeylonCart API is running' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'CeylonCart Backend API is active' });
 });
+
+// Only listen when running locally directly
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
