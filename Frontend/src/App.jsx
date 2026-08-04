@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 
 import Home from './pages/Home';
 import Checkout from './pages/Checkout';
@@ -32,7 +33,9 @@ function App() {
                   <Route path="/payment-failed" element={<PaymentFailed />} />
                   <Route path="/confirmation" element={<OrderConfirmation />} />
                 </Route>
-                <Route path="/admin" element={<AdminDashboard />} />
+                <Route element={<AdminRoute />}>
+                  <Route path="/admin" element={<AdminDashboard />} />
+                </Route>
               </Routes>
             </main>
             <Footer />

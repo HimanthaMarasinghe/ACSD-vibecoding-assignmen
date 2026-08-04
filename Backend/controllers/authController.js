@@ -94,22 +94,32 @@ export const logout = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ message: 'Authorization header missing or invalid' });
+    const token = 
+      req.cookies?.ceyloncart_token || 
+      (req.headers.authorization?.startsWith('Bearer ') && req.headers.authorization.split(' ')[1]);
+
+    if (!token) {
+      return res.status(401).json({ message: 'Authentication token missing' });
     }
 
-    const token = authHeader.split(' ')[1];
-
+    // 2. Validate session with Supabase
     const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error || !user) {
       return res.status(401).json({ message: 'Invalid or expired session token' });
     }
 
-    res.status(200).json({ user });
+    const appRole = await getAppRole(user.id);
+
+    // 3. Optional: Attach role metadata for your frontend
+    const userWithRole = {
+      ...user,
+      appRole: appRole || 'user',
+    };
+
+    return res.status(200).json({ user: userWithRole });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: 'Failed to authenticate user: ' + error.message });
   }
 };
 

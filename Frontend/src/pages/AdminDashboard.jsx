@@ -65,7 +65,12 @@ const AdminDashboard = () => {
       ]);
       setStats(statsData);
       setOrders(ordersData);
-      setProducts(productsData);
+      // Extract the products array safely
+      const productList = Array.isArray(productsData) 
+        ? productsData 
+        : productsData?.products || [];
+
+      setProducts(productList);
     } catch (err) {
       setError('Failed to load dashboard statistics.');
       console.error(err);
@@ -95,10 +100,6 @@ const AdminDashboard = () => {
       setUpdatingStatusId(null);
     }
   };
-
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
 
   if (loading && !stats) {
     return (

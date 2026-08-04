@@ -7,7 +7,11 @@ export default function ProtectedRoute() {
 
   // 1. Wait until AuthContext finishes checking the session/cookie
   if (loading) {
-    return <div>Loading...</div>; // Or your custom spinner component
+    return(
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-700"></div>
+        </div>
+    );
   }
 
   // 2. Redirect to /login if there is no user
