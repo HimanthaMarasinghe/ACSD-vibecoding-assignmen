@@ -1,9 +1,11 @@
 import { supabase } from '../config/supabase.js';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const COOKIE_OPTIONS = {
   httpOnly: true, // Prevents client-side JS from reading the cookie
-  secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
-  sameSite: 'none', // CSRF protection
+  secure: isProduction, // Requires HTTPS in production
+  sameSite: isProduction ? 'none' : 'lax', // CSRF protection
   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
 };
 

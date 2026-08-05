@@ -1,39 +1,36 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, '../data/db.json');
-
-const getDb = () => {
-  const data = fs.readFileSync(dbPath, 'utf8');
-  return JSON.parse(data);
-};
-
-const saveDb = (data) => {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-};
+import { supabase } from '../config/supabase.js';
 
 export const createOrder = async (req, res) => {
   try {
     const { customer_name, email, address, phone, total_amount, items, status } = req.body;
-    const db = getDb();
 
-    const newOrder = {
-      id: 'order-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+    if (!customer_name || !email || !total_amount) {
+      return res.status(400).json({ message: 'Customer name, email, and total amount are required.' });
+    }
+
+    const orderId = 'order-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+
+    const newOrderPayload = {
+      id: orderId,
       customer_name,
       email,
-      address,
-      phone,
-      total_amount,
-      items,
+      address: address || '',
+      phone: phone || '',
+      total_amount: parseFloat(total_amount),
+      items: items || [],
       status: status || 'Processing',
       created_at: new Date().toISOString()
     };
 
-    db.orders.push(newOrder);
-    saveDb(db);
+    const { data: newOrder, error } = await supabase
+      .from('orders')
+      .insert([newOrderPayload])
+      .select()
+      .single();
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
 
     res.status(201).json(newOrder);
   } catch (error) {
@@ -43,10 +40,16 @@ export const createOrder = async (req, res) => {
 
 export const getOrders = async (req, res) => {
   try {
-    const db = getDb();
-    // Sort by created_at descending
-    const sortedOrders = db.orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    res.json(sortedOrders);
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      return res.status(500).json({ message: error.message });
+    }
+
+    res.json(orders || []);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -56,18 +59,29 @@ export const updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
-    const db = getDb();
 
-    const orderIndex = db.orders.findIndex(o => o.id === id);
-    if (orderIndex === -1) {
+    if (!status) {
+      return res.status(400).json({ message: 'Status is required' });
+    }
+
+    const { data: updatedOrder, error } = await supabase
+      .from('orders')
+      .update({ status })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    if (!updatedOrder) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    db.orders[orderIndex].status = status;
-    saveDb(db);
-
-    res.json(db.orders[orderIndex]);
+    res.json(updatedOrder);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+

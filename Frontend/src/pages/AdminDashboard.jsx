@@ -131,9 +131,9 @@ const AdminDashboard = () => {
   // --- FILTERED DATA FOR TABLES ---
   const filteredOrders = orders.filter(order => {
     const matchesSearch = 
-      order.customer_name.toLowerCase().includes(orderSearch.toLowerCase()) ||
-      order.email.toLowerCase().includes(orderSearch.toLowerCase()) ||
-      order.id.toLowerCase().includes(orderSearch.toLowerCase());
+      (order.customer_name || '').toLowerCase().includes(orderSearch.toLowerCase()) ||
+      (order.email || '').toLowerCase().includes(orderSearch.toLowerCase()) ||
+      String(order.id || '').toLowerCase().includes(orderSearch.toLowerCase());
     
     const matchesStatus = orderStatusFilter === 'All' || order.status === orderStatusFilter;
     return matchesSearch && matchesStatus;
@@ -141,8 +141,8 @@ const AdminDashboard = () => {
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = 
-      product.name.toLowerCase().includes(productSearch.toLowerCase()) ||
-      product.id.toLowerCase().includes(productSearch.toLowerCase());
+      (product.name || '').toLowerCase().includes(productSearch.toLowerCase()) ||
+      String(product.id || '').toLowerCase().includes(productSearch.toLowerCase());
     
     const matchesCategory = productCatFilter === 'All' || product.category === productCatFilter;
     return matchesSearch && matchesCategory;
@@ -841,7 +841,7 @@ const AdminDashboard = () => {
                     return (
                       <tr key={p.id} className="hover:bg-gray-50/50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500">
-                          #{p.id.padStart(4, '0')}
+                          #{String(p.id || '').padStart(4, '0')}
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">

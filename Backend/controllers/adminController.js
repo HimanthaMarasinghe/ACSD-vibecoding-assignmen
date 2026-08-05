@@ -1,21 +1,24 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, '../data/db.json');
-
-const getDb = () => {
-  const data = fs.readFileSync(dbPath, 'utf8');
-  return JSON.parse(data);
-};
+import { supabase } from '../config/supabase.js';
 
 export const getAdminStats = async (req, res) => {
   try {
-    const db = getDb();
-    const orders = db.orders || [];
-    const products = db.products || [];
+    let orders = [];
+    let products = [];
+
+    // Try fetching from Supabase DB
+    if (supabase) {
+      const { data: dbOrders } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
+      const { data: dbProducts } = await supabase.from('products').select('*');
+      
+      if (dbOrders && dbOrders.length > 0) {
+        orders = dbOrders;
+      }
+      if (dbProducts && dbProducts.length > 0) {
+        products = dbProducts;
+      }
+    }
 
     // Filter valid orders (Success or Processing)
     const validOrders = orders.filter(o => o.status !== 'Failed');
